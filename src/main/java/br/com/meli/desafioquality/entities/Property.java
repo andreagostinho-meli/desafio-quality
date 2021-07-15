@@ -5,15 +5,13 @@ import java.util.List;
 public class Property {
     private int id;
     private String name;
-    private String district;
-    private double valueDistrictM2;
+    private int district_id;
     private List<Room> rooms;
 
-    public Property(int id, String name, String district, double valueDistrictM2, List<Room> rooms) {
+    public Property(int id, String name, int district_id, List<Room> rooms) {
         this.id = id;
         this.name = name;
-        this.district = district;
-        this.valueDistrictM2 = valueDistrictM2;
+        this.district_id = district_id;
         this.rooms = rooms;
     }
 
@@ -33,20 +31,12 @@ public class Property {
         this.name = name;
     }
 
-    public String getDistrict() {
-        return district;
+    public int getDistrict_id() {
+        return district_id;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public double getValueDistrictM2() {
-        return valueDistrictM2;
-    }
-
-    public void setValueDistrictM2(double valueDistrictM2) {
-        this.valueDistrictM2 = valueDistrictM2;
+    public void setDistrict_id(int district_id) {
+        this.district_id = district_id;
     }
 
     public List<Room> getRooms() {
