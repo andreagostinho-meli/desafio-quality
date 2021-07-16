@@ -35,4 +35,12 @@ public class Advisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(PropertyNotFoundException.class)
+    public ResponseEntity<Object> handlePropertyNotFoundException(PropertyNotFoundException exception) {
+        Map<String, String> body = new HashMap<>();
+        body.put("message", exception.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
 }

@@ -20,4 +20,8 @@ public class PropertyRepository {
         return property;
     }
 
+    public Property findById(int id) {
+        return properties.stream().filter(property -> property.getId() == id).findFirst().orElse(null);
+    }
+
 }

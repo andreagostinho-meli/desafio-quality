@@ -2,6 +2,7 @@ package br.com.meli.desafioquality.controllers;
 
 import br.com.meli.desafioquality.dto.property.create.CreatePropertyRequestDTO;
 import br.com.meli.desafioquality.dto.property.create.CreatePropertyResponseDTO;
+import br.com.meli.desafioquality.dto.property.gettotalm2.GetPropertyTotalM2ResponseDTO;
 import br.com.meli.desafioquality.entities.District;
 import br.com.meli.desafioquality.entities.Property;
 import br.com.meli.desafioquality.entities.Room;
@@ -53,6 +54,13 @@ public class PropertyController {
                 district.getM2Value(),
                 createPropertyRequestDTO.getRooms()
         );
+    }
+
+    @GetMapping("/total_m2/{id}")
+    @ResponseBody
+    public GetPropertyTotalM2ResponseDTO getPropertyTotalM2(@PathVariable int id) {
+        double totalM2 = propertyService.calculatePropertyTotalM2(id);
+        return new GetPropertyTotalM2ResponseDTO(totalM2);
     }
 
 }

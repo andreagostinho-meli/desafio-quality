@@ -5,7 +5,9 @@ import br.com.meli.desafioquality.services.DistrictService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class DistrictServiceTest {
 
     @Autowired
@@ -14,7 +16,7 @@ public class DistrictServiceTest {
     @Test
     public void shouldNotCreatePropertyIfDistrictNotExists() {
         Assertions.assertThrows(DistrictNotFoundException.class, () -> {
-            districtService.findById(1);
+            districtService.findById(0);
         });
     }
 

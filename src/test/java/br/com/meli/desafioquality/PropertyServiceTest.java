@@ -1,16 +1,20 @@
 package br.com.meli.desafioquality;
 
+import br.com.meli.desafioquality.entities.District;
 import br.com.meli.desafioquality.entities.Property;
 import br.com.meli.desafioquality.entities.Room;
+import br.com.meli.desafioquality.repositories.DistrictRepository;
 import br.com.meli.desafioquality.repositories.PropertyRepository;
 import br.com.meli.desafioquality.services.PropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+@SpringBootTest
 public class PropertyServiceTest {
 
     @Autowired
@@ -19,20 +23,24 @@ public class PropertyServiceTest {
     @Autowired
     private PropertyRepository propertyRepository;
 
+    @Autowired
+    private DistrictRepository districtRepository;
+
     @Test
     public void shouldCalculatePropertyTotalM2() {
         // arrange
-        Room room1 = new Room("Sala de Estar", 30, 40);
-        Room room2 = new Room("Cozinha", 50, 50);
+        districtRepository.create(new District(1, "Laranjeiras", new BigDecimal(400)));
 
-        Property property = new Property(1, "Fazenda Boa Vista", 1, Arrays.asList(room1, room2));
+        Room room1 = new Room("Sala de Estar", 20, 20);
+        Room room2 = new Room("Cozinha", 30, 30);
+
+        propertyRepository.create(new Property(1, "Fazenda Boa Vista", 1, Arrays.asList(room1, room2)));
 
         // act
-        propertyRepository.create(property);
-//        BigDecimal totalM2 = propertyService.calculatePropertyTotalM2(1);
+        double totalM2 = propertyService.calculatePropertyTotalM2(1);
 
         // assert
-//        Assertions.assertEquals(new BigDecimal(370), totalM2);
+        Assertions.assertEquals(1300, totalM2);
     }
 
 }
