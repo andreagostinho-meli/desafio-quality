@@ -1,8 +1,20 @@
 package br.com.meli.desafioquality.dto.property;
 
+import javax.validation.constraints.*;
+
 public class RoomRequestDTO {
+
+    @NotBlank(message = "O nome do cômodo não pode estar vazio")
+    @Pattern(regexp = "^[A-Z].*", message = "O nome do cômodo deve começar com uma letra maiúscula")
+    @Size(max = 30, message = "O comprimento do cômodo não pode exceder 30 caracteres")
     private String room_name;
+
+    @NotNull(message = "A largura do cômodo não pode estar vazia")
+    @Max(value = 25, message = "A largura máxima permitida por cômodo é de 25 metros")
     private double room_width;
+
+    @NotNull(message = "O comprimento do cômodo não pode estar vazio")
+    @Max(value = 33, message = "O comprimento máximo permitido por cômodo é de 33 metros")
     private double room_length;
 
     public RoomRequestDTO() {
@@ -31,4 +43,5 @@ public class RoomRequestDTO {
     public void setRoom_length(double room_length) {
         this.room_length = room_length;
     }
+
 }

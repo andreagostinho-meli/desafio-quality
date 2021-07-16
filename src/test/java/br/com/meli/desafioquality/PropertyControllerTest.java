@@ -2,6 +2,8 @@ package br.com.meli.desafioquality;
 
 import br.com.meli.desafioquality.dto.property.RoomRequestDTO;
 import br.com.meli.desafioquality.dto.property.create.CreatePropertyRequestDTO;
+import br.com.meli.desafioquality.entities.District;
+import br.com.meli.desafioquality.repositories.DistrictRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 @SpringBootTest
@@ -25,6 +28,9 @@ public class PropertyControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    DistrictRepository districtRepository;
+
     @Test
     public void shouldCreateProperty() throws Exception {
         // arrange
@@ -33,16 +39,18 @@ public class PropertyControllerTest {
         RoomRequestDTO room2 = new RoomRequestDTO();
 
         room1.setRoom_name("Sala de estar");
-        room1.setRoom_width(30);
-        room1.setRoom_length(40);
+        room1.setRoom_width(10);
+        room1.setRoom_length(20);
 
         room2.setRoom_name("Cozinha");
-        room2.setRoom_width(50);
-        room2.setRoom_length(50);
+        room2.setRoom_width(30);
+        room2.setRoom_length(30);
 
         createPropertyRequest.setProp_name("Fazenda Boa Vista");
         createPropertyRequest.setProp_district_id(1);
         createPropertyRequest.setRooms(Arrays.asList(room1, room2));
+
+        districtRepository.create(new District(1, "Laranjeiras", new BigDecimal(400)));
 
         String createPropertyRequestJSON = objectMapper.writeValueAsString(createPropertyRequest);
 

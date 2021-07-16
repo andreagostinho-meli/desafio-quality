@@ -1,17 +1,18 @@
 package br.com.meli.desafioquality.dto.property.create;
 
-import br.com.meli.desafioquality.dto.property.RoomResponseDTO;
+import br.com.meli.desafioquality.dto.property.RoomRequestDTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CreatePropertyResponseDTO {
     private int prop_id;
     private String prop_name;
     private String prop_district;
-    private double value_district_m2;
-    private List<RoomResponseDTO> rooms;
+    private BigDecimal value_district_m2;
+    private List<RoomRequestDTO> rooms;
 
-    public CreatePropertyResponseDTO(int prop_id, String prop_name, String prop_district, double value_district_m2, List<RoomResponseDTO> rooms) {
+    public CreatePropertyResponseDTO(int prop_id, String prop_name, String prop_district, BigDecimal value_district_m2, List<RoomRequestDTO> rooms) {
         this.prop_id = prop_id;
         this.prop_name = prop_name;
         this.prop_district = prop_district;
@@ -43,19 +44,19 @@ public class CreatePropertyResponseDTO {
         this.prop_district = prop_district;
     }
 
-    public double getValue_district_m2() {
+    public BigDecimal getValue_district_m2() {
         return value_district_m2;
     }
 
-    public void setValue_district_m2(double value_district_m2) {
+    public void setValue_district_m2(BigDecimal value_district_m2) {
         this.value_district_m2 = value_district_m2;
     }
 
-    public List<RoomResponseDTO> getRooms() {
+    public List<RoomRequestDTO> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<RoomResponseDTO> rooms) {
+    public void setRooms(List<RoomRequestDTO> rooms) {
         this.rooms = rooms;
     }
 }
