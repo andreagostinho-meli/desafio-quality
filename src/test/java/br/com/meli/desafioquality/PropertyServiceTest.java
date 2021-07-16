@@ -6,12 +6,10 @@ import br.com.meli.desafioquality.services.PropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-@SpringBootTest
 public class PropertyServiceTest {
 
     @Autowired
