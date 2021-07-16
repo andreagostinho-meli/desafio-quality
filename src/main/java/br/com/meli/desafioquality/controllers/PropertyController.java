@@ -3,6 +3,7 @@ package br.com.meli.desafioquality.controllers;
 import br.com.meli.desafioquality.dto.property.create.CreatePropertyRequestDTO;
 import br.com.meli.desafioquality.dto.property.create.CreatePropertyResponseDTO;
 import br.com.meli.desafioquality.dto.property.gettotalm2.GetPropertyTotalM2ResponseDTO;
+import br.com.meli.desafioquality.dto.property.getvalue.GetPropertyValueResponseDTO;
 import br.com.meli.desafioquality.entities.District;
 import br.com.meli.desafioquality.entities.Property;
 import br.com.meli.desafioquality.entities.Room;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +63,17 @@ public class PropertyController {
     public GetPropertyTotalM2ResponseDTO getPropertyTotalM2(@PathVariable int id) {
         double totalM2 = propertyService.calculatePropertyTotalM2(id);
         return new GetPropertyTotalM2ResponseDTO(totalM2);
+    }
+
+    @GetMapping("/value/{id}")
+    @ResponseBody
+    public GetPropertyValueResponseDTO getPropertyValue(@PathVariable int id) {
+        Property property = propertyService.findById(id);
+        District district = districtService.findById(property.getDistrict_id());
+
+        BigDecimal propertyValue = propertyService.calculatePropertyValue(property, district);
+
+        return new GetPropertyValueResponseDTO(propertyValue);
     }
 
 }

@@ -46,18 +46,25 @@ public class PropertyServiceTest {
     @Test
     public void shouldCalculatePropertyValue() {
         // arrange
-        districtRepository.create(new District(1, "Laranjeiras", new BigDecimal(400)));
+        District district = districtRepository.create(new District(1, "Laranjeiras", new BigDecimal(400)));
 
         Room room1 = new Room("Sala de Estar", 20, 20);
         Room room2 = new Room("Cozinha", 30, 30);
 
-        propertyRepository.create(new Property(1, "Fazenda Boa Vista", 1, Arrays.asList(room1, room2)));
+        Property property = propertyRepository.create(
+            new Property(
+                1,
+                "Fazenda Boa Vista",
+                1,
+                Arrays.asList(room1, room2)
+            )
+        );
 
         // act
-        BigDecimal propertyValue = propertyService.calculatePropertyValue(1);
+        BigDecimal propertyValue = propertyService.calculatePropertyValue(property, district);
 
         // assert
-        Assertions.assertEquals(520000, propertyValue);
+        Assertions.assertEquals(BigDecimal.valueOf(520000.0), propertyValue);
     }
 
 }
