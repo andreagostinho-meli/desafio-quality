@@ -43,4 +43,21 @@ public class PropertyServiceTest {
         Assertions.assertEquals(1300, totalM2);
     }
 
+    @Test
+    public void shouldCalculatePropertyValue() {
+        // arrange
+        districtRepository.create(new District(1, "Laranjeiras", new BigDecimal(400)));
+
+        Room room1 = new Room("Sala de Estar", 20, 20);
+        Room room2 = new Room("Cozinha", 30, 30);
+
+        propertyRepository.create(new Property(1, "Fazenda Boa Vista", 1, Arrays.asList(room1, room2)));
+
+        // act
+        BigDecimal propertyValue = propertyService.calculatePropertyValue(1);
+
+        // assert
+        Assertions.assertEquals(520000, propertyValue);
+    }
+
 }
