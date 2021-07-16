@@ -20,4 +20,8 @@ public class DistrictRepository {
         return district;
     }
 
+    public District findById(int id) {
+        return districts.stream().filter(district -> district.getId() == id).findFirst().orElse(null);
+    }
+
 }
