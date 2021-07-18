@@ -2,6 +2,7 @@ package br.com.meli.desafioquality.services;
 
 import br.com.meli.desafioquality.entities.District;
 import br.com.meli.desafioquality.entities.Property;
+import br.com.meli.desafioquality.entities.Room;
 import br.com.meli.desafioquality.exceptions.PropertyNotFoundException;
 import br.com.meli.desafioquality.repositories.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,10 @@ public class PropertyService {
     public BigDecimal calculatePropertyValue(Property property, District district) {
         double totalM2 = calculatePropertyTotalM2(property.getId());
         return district.getM2Value().multiply(BigDecimal.valueOf(totalM2));
+    }
+
+    public Room findLargestRoom(int propertyId) {
+        return null;
     }
 
 }

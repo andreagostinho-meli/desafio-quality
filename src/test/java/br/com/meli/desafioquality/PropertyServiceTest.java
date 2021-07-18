@@ -67,4 +67,28 @@ public class PropertyServiceTest {
         Assertions.assertEquals(BigDecimal.valueOf(520000.0), propertyValue);
     }
 
+    @Test
+    public void shouldFindLargestRoom() {
+        // arrange
+        District district = districtRepository.create(new District(1, "Laranjeiras", new BigDecimal(400)));
+
+        Room room1 = new Room("Sala de Estar", 20, 20);
+        Room room2 = new Room("Cozinha", 30, 30);
+
+        Property property = propertyRepository.create(
+            new Property(
+                1,
+                "Fazenda Boa Vista",
+                1,
+                Arrays.asList(room1, room2)
+            )
+        );
+
+        // act
+        Room largestRoom = propertyService.findLargestRoom(property.getId());
+
+        // assert
+        Assertions.assertEquals(room2, largestRoom);
+    }
+
 }
