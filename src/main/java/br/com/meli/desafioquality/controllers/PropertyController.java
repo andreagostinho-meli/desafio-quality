@@ -2,6 +2,7 @@ package br.com.meli.desafioquality.controllers;
 
 import br.com.meli.desafioquality.dto.property.create.CreatePropertyRequestDTO;
 import br.com.meli.desafioquality.dto.property.create.CreatePropertyResponseDTO;
+import br.com.meli.desafioquality.dto.property.getlargestroom.GetLargestRoomResponseDTO;
 import br.com.meli.desafioquality.dto.property.gettotalm2.GetPropertyTotalM2ResponseDTO;
 import br.com.meli.desafioquality.dto.property.getvalue.GetPropertyValueResponseDTO;
 import br.com.meli.desafioquality.entities.District;
@@ -74,6 +75,13 @@ public class PropertyController {
         BigDecimal propertyValue = propertyService.calculatePropertyValue(property, district);
 
         return new GetPropertyValueResponseDTO(propertyValue);
+    }
+
+    @GetMapping("/{propertyId}/largest_room")
+    @ResponseBody
+    public GetLargestRoomResponseDTO getLargestRoom(@PathVariable int propertyId) {
+        Room largestRoom = propertyService.findLargestRoom(propertyId);
+        return new GetLargestRoomResponseDTO(largestRoom);
     }
 
 }

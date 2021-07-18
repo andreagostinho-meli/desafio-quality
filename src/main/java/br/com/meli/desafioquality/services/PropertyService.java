@@ -23,13 +23,16 @@ public class PropertyService {
 
     public double calculatePropertyTotalM2(int id) {
         Property property = propertyRepository.findById(id);
-        if(property == null) throw new PropertyNotFoundException();
+        checkIfPropertyExists(property);
 
         return property.getRooms().stream().mapToDouble(room -> room.getWidth() * room.getLength()).sum();
     }
 
     public Property findById(int id) {
-        return propertyRepository.findById(id);
+        Property property = propertyRepository.findById(id);
+        checkIfPropertyExists(property);
+
+        return property;
     }
 
     public BigDecimal calculatePropertyValue(Property property, District district) {
@@ -38,7 +41,26 @@ public class PropertyService {
     }
 
     public Room findLargestRoom(int propertyId) {
-        return null;
+        Property property = propertyRepository.findById(propertyId);
+        checkIfPropertyExists(property);
+
+        Room largestRoom = property.getRooms().get(0);
+        double largestRoomM2 = calculateRoomM2(property.getRooms().get(0));
+
+        for (Room room : property.getRooms()) {
+            double currentRoomM2 = calculateRoomM2(room);
+            if (currentRoomM2 > largestRoomM2) largestRoom = room;
+        }
+
+        return largestRoom;
+    }
+
+    private double calculateRoomM2(Room room) {
+        return room.getWidth() * room.getLength();
+    }
+
+    private void checkIfPropertyExists(Property property) {
+        if(property == null) throw new PropertyNotFoundException();
     }
 
 }
