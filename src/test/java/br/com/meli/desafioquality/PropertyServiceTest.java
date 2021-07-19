@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootTest
 public class PropertyServiceTest {
@@ -89,6 +90,31 @@ public class PropertyServiceTest {
 
         // assert
         Assertions.assertEquals(room2, largestRoom);
+    }
+
+    @Test
+    public void shouldCalculateM2ForAllRooms() {
+        // arrange
+        District district = districtRepository.create(new District(1, "Laranjeiras", new BigDecimal(400)));
+
+        Room room1 = new Room("Sala de Estar", 20, 20);
+        Room room2 = new Room("Cozinha", 30, 30);
+
+        Property property = propertyRepository.create(
+                new Property(
+                        1,
+                        "Fazenda Boa Vista",
+                        1,
+                        Arrays.asList(room1, room2)
+                )
+        );
+
+        // act
+        List<Double> m2Values = propertyService.calculateM2ForAllRooms(property.getId());
+
+        // assert
+        Assertions.assertEquals(400, m2Values.get(0));
+        Assertions.assertEquals(900, m2Values.get(1));
     }
 
 }
