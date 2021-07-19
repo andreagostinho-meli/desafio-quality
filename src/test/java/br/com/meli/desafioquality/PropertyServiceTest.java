@@ -3,17 +3,13 @@ package br.com.meli.desafioquality;
 import br.com.meli.desafioquality.entities.District;
 import br.com.meli.desafioquality.entities.Property;
 import br.com.meli.desafioquality.entities.Room;
-import br.com.meli.desafioquality.repositories.DistrictRepository;
 import br.com.meli.desafioquality.repositories.PropertyRepository;
 import br.com.meli.desafioquality.services.PropertyService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
@@ -28,10 +24,6 @@ public class PropertyServiceTest {
 
     @Mock
     private PropertyRepository propertyRepository;
-
-    @Mock
-    private DistrictRepository districtRepository;
-
 
     @Test
     public void shouldCalculatePropertyTotalM2() {
