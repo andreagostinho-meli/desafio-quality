@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -53,6 +55,19 @@ public class PropertyService {
         }
 
         return largestRoom;
+    }
+
+    public List<Double> calculateM2ForAllRooms(int propertyId) {
+        Property property = propertyRepository.findById(propertyId);
+        checkIfPropertyExists(property);
+
+        List<Double> roomsM2 = new ArrayList<>();
+
+        property.getRooms().forEach(room -> {
+            roomsM2.add(calculateRoomM2(room));
+        });
+
+        return roomsM2;
     }
 
     private double calculateRoomM2(Room room) {

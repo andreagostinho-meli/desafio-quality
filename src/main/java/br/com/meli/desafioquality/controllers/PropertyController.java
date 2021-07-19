@@ -3,6 +3,8 @@ package br.com.meli.desafioquality.controllers;
 import br.com.meli.desafioquality.dto.property.create.CreatePropertyRequestDTO;
 import br.com.meli.desafioquality.dto.property.create.CreatePropertyResponseDTO;
 import br.com.meli.desafioquality.dto.property.getlargestroom.GetLargestRoomResponseDTO;
+import br.com.meli.desafioquality.dto.property.getroomsm2.GetRoomsM2ResponseDTO;
+import br.com.meli.desafioquality.dto.property.getroomsm2.RoomM2DTO;
 import br.com.meli.desafioquality.dto.property.gettotalm2.GetPropertyTotalM2ResponseDTO;
 import br.com.meli.desafioquality.dto.property.getvalue.GetPropertyValueResponseDTO;
 import br.com.meli.desafioquality.entities.District;
@@ -82,6 +84,27 @@ public class PropertyController {
     public GetLargestRoomResponseDTO getLargestRoom(@PathVariable int propertyId) {
         Room largestRoom = propertyService.findLargestRoom(propertyId);
         return new GetLargestRoomResponseDTO(largestRoom);
+    }
+
+    @GetMapping("/{propertyId}/rooms_m2")
+    @ResponseBody
+    public GetRoomsM2ResponseDTO getRoomsM2(@PathVariable int propertyId) {
+        Property property = propertyService.findById(propertyId);
+        List<Room> propertyRooms = property.getRooms();
+        List<Double> m2Values = propertyService.calculateM2ForAllRooms(propertyId);
+        GetRoomsM2ResponseDTO getRoomsM2ResponseDTO = new GetRoomsM2ResponseDTO(new ArrayList<>());
+
+        for(int i = 0; i < propertyRooms.size(); i++) {
+            Room room = propertyRooms.get(i);
+            RoomM2DTO roomM2DTO = new RoomM2DTO(room.getName(), room.getWidth(), room.getLength(), m2Values.get(i));
+
+            List<RoomM2DTO> roomsList = getRoomsM2ResponseDTO.getRooms();
+            roomsList.add(roomM2DTO);
+
+            getRoomsM2ResponseDTO.setRooms(roomsList);
+        }
+
+        return getRoomsM2ResponseDTO;
     }
 
 }
